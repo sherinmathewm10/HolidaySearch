@@ -38,7 +38,54 @@ namespace HolidaySearch.UnitTest
             {
                 Id = 9
             };
-           var Result = searchService.Search(search);
+            var Result = searchService.Search(search);
+            Assert.IsNotNull(Result);
+            Assert.AreEqual(hotel.Id, Convert.ToInt64(Result.Hotel.Id));
+            Assert.AreEqual(flight.Id, Convert.ToInt64(Result.Flight.Id));
+        }
+        [TestMethod]
+        public void AnyAirportToMallorcaAirport()
+        {
+            var search = new Search()
+            {
+                DepartingFrom = "",
+                TravellingTo = "PMI",
+                Duration = 10,
+                DepartureDate = DateTime.Parse("2023/06/15")
+            };
+            var flight = new Flight()
+            {
+                Id = 6,
+            };
+            var hotel = new Hotel()
+            {
+                Id = 5
+            };
+            var Result = searchService.Search(search);
+            Assert.IsNotNull(Result);
+            Assert.AreEqual(hotel.Id, Convert.ToInt64(Result.Hotel.Id));
+            Assert.AreEqual(flight.Id, Convert.ToInt64(Result.Flight.Id));
+        }
+
+        [TestMethod]
+        public void AnyAirportToGranCanariaAirport()
+        {
+            var search = new Search()
+            {
+                DepartingFrom = "",
+                TravellingTo = "LPA",
+                Duration = 14,
+                DepartureDate = DateTime.Parse("2022/11/10")
+            };
+            var flight = new Flight()
+            {
+                Id = 7,
+            };
+            var hotel = new Hotel()
+            {
+                Id = 6
+            };
+            var Result = searchService.Search(search);
             Assert.IsNotNull(Result);
             Assert.AreEqual(hotel.Id, Convert.ToInt64(Result.Hotel.Id));
             Assert.AreEqual(flight.Id, Convert.ToInt64(Result.Flight.Id));

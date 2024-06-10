@@ -17,8 +17,11 @@ namespace HolidaySearch.Services
         {
             var results = new List<Result>();
            
-            var matchedhotel = Hotels.Where(h => h.LocalAirports.Contains(holidaySearch.TravellingTo) && h.ArrivalDate <= holidaySearch.DepartureDate && h.NoOfNights>=holidaySearch.Duration).ToList() ;
-            var matchedFlight =Flights.Where(f=> f.DepartureDate == holidaySearch.DepartureDate && holidaySearch.DepartingFrom == f.From && holidaySearch.TravellingTo==f.To).ToList() ;
+            var matchedhotel = Hotels.Where(h => h.ArrivalDate == holidaySearch.DepartureDate 
+                                                 && h.NoOfNights==holidaySearch.Duration).ToList() ;
+            var matchedFlight =Flights.Where(f=> f.DepartureDate == holidaySearch.DepartureDate 
+                                                 && holidaySearch.DepartingFrom == f.From || holidaySearch.DepartingFrom == "" 
+                                                 && holidaySearch.TravellingTo == f.To).ToList() ;
             foreach(var flight in matchedhotel)
             {
                 foreach(var hotel in matchedFlight)
@@ -26,8 +29,8 @@ namespace HolidaySearch.Services
                     results.Add(new Result(flight,hotel));
                 }
             }
-            results.OrderBy(r => r.TotalPrice = r.TotalPrice + r.Flight.Price + (r.Hotel.PricePerNight * r.Hotel.NoOfNights)).ToList();
-            return results.First();
+           return results.OrderBy(r => r.TotalPrice = r.TotalPrice + r.Flight.Price + (r.Hotel.PricePerNight * r.Hotel.NoOfNights)).ToList().First();
         }
+
     }
 }
