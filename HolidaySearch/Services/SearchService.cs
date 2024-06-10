@@ -12,11 +12,21 @@ namespace HolidaySearch.Services
             this.Flights = flights;
             this.Hotels = hotels;
         }
+        
         public Result Search(Search holidaySearch)
         {
-            var matchedhotel = Hotels.Where(h => h.LocalAirports.Contains(holidaySearch.TravellingTo);
-            var matchedFlight =Flights.Where(f=> f.)
-            return Result;
+            var results = new List<Result>();
+           
+            var matchedhotel = Hotels.Where(h => h.LocalAirports.Contains(holidaySearch.TravellingTo) && h.ArrivalDate <= holidaySearch.DepartureDate && h.NoOfNights>=holidaySearch.Duration).ToList() ;
+            var matchedFlight =Flights.Where(f=> f.DepartureDate == holidaySearch.DepartureDate && holidaySearch.DepartingFrom == f.From && holidaySearch.TravellingTo==f.To).ToList() ;
+            foreach(var flight in matchedhotel)
+            {
+                foreach(var hotel in matchedFlight)
+                {
+                    results.Add(new Result(flight,hotel));
+                }
+            }
+            return results.First();
         }
     }
 }
