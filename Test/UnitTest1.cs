@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace HolidaySearch.UnitTest
+namespace Test
 {
     [TestClass]
     public class UnitTest1

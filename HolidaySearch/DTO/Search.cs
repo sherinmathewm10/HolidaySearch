@@ -1,6 +1,6 @@
 ﻿namespace HolidaySearch.DTO
 {
-    public class HolidaySearch
+    public class Search
     {
         public string DepartingFrom { get; set; }
         public string TravellingTo { get; set; }
