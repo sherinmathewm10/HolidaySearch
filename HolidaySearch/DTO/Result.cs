@@ -4,6 +4,7 @@
     {
         public Hotel Hotel { get; set; }
         public Flight Flight { get; set; }
+        public decimal TotalPrice {  get; set; }
         public Result(Hotel hotel, Flight flight) { 
             Hotel = hotel;
             Flight = flight;

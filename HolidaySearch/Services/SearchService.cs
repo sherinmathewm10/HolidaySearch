@@ -26,6 +26,7 @@ namespace HolidaySearch.Services
                     results.Add(new Result(flight,hotel));
                 }
             }
+            results.OrderBy(r => r.TotalPrice = r.TotalPrice + r.Flight.Price + (r.Hotel.PricePerNight * r.Hotel.NoOfNights)).ToList();
             return results.First();
         }
     }
